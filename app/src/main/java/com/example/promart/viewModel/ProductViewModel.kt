@@ -1,27 +1,43 @@
 package com.example.promart.viewModel
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.promart.model.Product
-import com.example.promart.network.ApiState
-import com.example.promart.repository.MainRepository
+import com.example.promart.network.common.Resource
+import com.example.promart.network.stateHolder.ProductListHolder
+import com.example.promart.network.useCases.GetProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductViewModel @Inject constructor(private val mainRepository: MainRepository): ViewModel() {
+class ProductViewModel @Inject constructor(private val getProductUseCase: GetProductUseCase): ViewModel() {
 
-    val products: StateFlow<Product>
-        get() = mainRepository.products
+    private val _productListStateHolder = mutableStateOf(ProductListHolder())
+    val productListStateHolder : State<ProductListHolder> = _productListStateHolder
 
     init {
-        viewModelScope.launch {
-            mainRepository.getAllProducts()
-        }
+        getAllProducts()
+    }
+
+    private fun getAllProducts() = viewModelScope.launch {
+        getProductUseCase().onEach {
+            when(it){
+                is Resource.Loading -> {
+                    _productListStateHolder.value = ProductListHolder(isLoading = true)
+                }
+                is Resource.Success -> {
+                    _productListStateHolder.value = ProductListHolder(data = it.data)
+                }
+                is Resource.Error -> {
+                    _productListStateHolder.value = ProductListHolder(error= it.message.toString())
+                }
+
+            }
+        }.launchIn(viewModelScope)
     }
 
     /*var productListResponse:List<Item> by mutableStateOf(listOf())

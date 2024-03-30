@@ -9,13 +9,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun ProgressIndicator(){
     Column(
-        modifier = Modifier
+        modifier = Modifier.testTag("progress")
             .fillMaxSize()
             .padding(horizontal = 20.dp),
 

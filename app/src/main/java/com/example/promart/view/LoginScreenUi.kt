@@ -23,12 +23,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.promart.navigation.NavigationScreen
-import com.example.promart.navigation.ProMartAppRouter
+import androidx.navigation.NavHostController
+import com.example.promart.navigation.ScreenNavigation
 
 private fun logged(username: String, password: String) {
     if (username == "jks" && password == "12345") {
@@ -41,11 +42,11 @@ private fun logged(username: String, password: String) {
 @Preview
 @Composable
 fun LoginScreenPreview(){
-    LoginScreen()
+    LoginScreen(NavHostController(context = LocalContext.current))
 }
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navHostController: NavHostController) {
     val username = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
 
@@ -58,7 +59,9 @@ fun LoginScreen() {
 
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
@@ -67,7 +70,9 @@ fun LoginScreen() {
             )
         }
 
-        Spacer(modifier = Modifier.height(40.dp).padding(20.dp))
+        Spacer(modifier = Modifier
+            .height(40.dp)
+            .padding(20.dp))
 
         OutlinedTextField(
             value = username.value,
@@ -89,7 +94,9 @@ fun LoginScreen() {
             placeholder = {
                 Text(text = "enter username")
             },
-            modifier = Modifier.fillMaxWidth().padding(top = 20.dp, bottom = 10.dp, start = 20.dp, end = 20.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp, bottom = 10.dp, start = 20.dp, end = 20.dp)
         )
         OutlinedTextField(
             value = password.value,
@@ -111,12 +118,14 @@ fun LoginScreen() {
             placeholder = {
                 Text(text = "enter password")
             },
-            modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 30.dp, start = 20.dp, end = 20.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, bottom = 30.dp, start = 20.dp, end = 20.dp)
         )
 
         OutlinedButton(
             onClick = { logged(username.value, password.value)
-                        ProMartAppRouter.navigateTo(NavigationScreen.HomeScreen)
+                        navHostController.navigate(ScreenNavigation.HomeScreen.route)
                       },
             modifier = Modifier
                 .fillMaxWidth()

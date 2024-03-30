@@ -1,6 +1,9 @@
 package com.example.promart.network.di
 
 import com.example.promart.network.ApiService
+import com.example.promart.network.useCases.GetProductUseCase
+import com.example.promart.repository.GetProductRepository
+import com.example.promart.repository.GetProductRepositoryImpl
 import com.example.promart.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -27,5 +30,17 @@ class NetworkModule {
     @Provides
     fun provideApiService(retrofit: Retrofit):ApiService{
         return retrofit.create(ApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetProductRepository(apiService: ApiService) : GetProductRepository {
+        return GetProductRepositoryImpl(apiService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetProductUseCase(getProductRepository: GetProductRepository): GetProductUseCase {
+        return GetProductUseCase(getProductRepository)
     }
 }

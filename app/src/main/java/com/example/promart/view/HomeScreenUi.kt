@@ -10,38 +10,47 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import com.example.promart.components.TextBodyEllipsis
 import com.example.promart.components.TextHeadingBold
 import com.example.promart.components.TextSubtitle
 import com.example.promart.utils.Constants
 import com.example.promart.model.Item
-import com.example.promart.model.Product
 import com.example.promart.viewModel.ProductViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.promart.components.ProgressIndicator
 
 @Composable
-fun HomeScreen() {
-    val viewModel: ProductViewModel = viewModel()
-    val products: State<Product> = viewModel.products.collectAsState()
-    val progress = remember {
-        mutableStateOf(true)
+fun HomeScreen(navHostController: NavHostController, viewModel: ProductViewModel = hiltViewModel()) {
+    val result = viewModel.productListStateHolder.value
+
+    if (result.isLoading){
+        Box(modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center){
+            ProgressIndicator()
+        }
     }
 
-    if (progress.value){
-
+    if (result.error.isNotBlank()){
+        Box(modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center){
+            Text(text = result.error)
+        }
     }
-    ProductList(productList = products.value.products)
+
+    if (result.data!=null) {
+        ProductList(productList = result.data.products)
+    }
 
 }
 
