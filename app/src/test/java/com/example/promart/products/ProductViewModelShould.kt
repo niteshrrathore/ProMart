@@ -2,9 +2,9 @@ package com.example.promart.products
 
 import com.example.promart.MainCoroutineRule
 import com.example.promart.model.Product
-import com.example.promart.network.common.Resource
-import com.example.promart.network.useCases.GetProductUseCase
-import com.example.promart.viewModel.ProductViewModel
+import com.example.promart.core.common.Resource
+import com.example.promart.domain.useCases.GetProductUseCase
+import com.example.promart.presentation.viewModel.ProductViewModel
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert

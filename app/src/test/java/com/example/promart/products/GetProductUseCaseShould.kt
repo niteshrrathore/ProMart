@@ -1,7 +1,7 @@
 package com.example.promart.products
 
 import com.example.promart.model.Product
-import com.example.promart.network.useCases.GetProductUseCase
+import com.example.promart.domain.useCases.GetProductUseCase
 import com.example.promart.repository.GetProductRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.onEach

@@ -5,7 +5,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import com.example.promart.model.Item
-import com.example.promart.view.ProductItem
+import com.example.promart.presentation.screens.ProductItem
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

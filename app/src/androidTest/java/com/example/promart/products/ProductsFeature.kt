@@ -3,7 +3,7 @@ package com.example.promart.products
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import com.example.promart.MainActivity
+import com.example.promart.presentation.MainActivity
 import org.junit.Rule
 import org.junit.Test
 
