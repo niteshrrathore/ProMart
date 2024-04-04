@@ -1,9 +1,8 @@
 package com.example.promart.products
 
-import com.example.promart.model.Product
+import com.example.promart.domain.model.ProductList
+import com.example.promart.domain.repository.GetProductRepository
 import com.example.promart.domain.useCases.GetProductUseCase
-import com.example.promart.repository.GetProductRepository
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -17,7 +16,7 @@ class GetProductUseCaseShould {
 
     private lateinit var getProductRepository: GetProductRepository
     private lateinit var getProductUseCase: GetProductUseCase
-    private val products  = mock <Response<Product>>()
+    private val products  = mock <Response<ProductList>>()
 
     @Before
     fun setUp(){

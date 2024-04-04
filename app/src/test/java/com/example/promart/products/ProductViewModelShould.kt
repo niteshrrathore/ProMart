@@ -1,8 +1,8 @@
 package com.example.promart.products
 
 import com.example.promart.MainCoroutineRule
-import com.example.promart.model.Product
 import com.example.promart.core.common.Resource
+import com.example.promart.domain.model.ProductList
 import com.example.promart.domain.useCases.GetProductUseCase
 import com.example.promart.presentation.viewModel.ProductViewModel
 import kotlinx.coroutines.flow.flow
@@ -21,7 +21,7 @@ class ProductViewModelShould {
 
     private val getProductUseCase: GetProductUseCase = mock()
     private lateinit var productViewModel : ProductViewModel
-    private val movieList : Product? = mock()
+    private val movieList : ProductList? = mock()
 
     @Before
     fun setup(){
