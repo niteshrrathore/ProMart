@@ -1,10 +1,10 @@
 package com.example.promart.products
 
 import com.example.promart.MainCoroutineRule
-import com.example.promart.model.Product
-import com.example.promart.network.ApiService
-import com.example.promart.repository.GetProductRepository
-import com.example.promart.repository.GetProductRepositoryImpl
+import com.example.promart.data.remote.network.ApiService
+import com.example.promart.data.repoository.GetProductRepositoryImpl
+import com.example.promart.domain.model.Product
+import com.example.promart.domain.repository.GetProductRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert

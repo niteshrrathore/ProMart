@@ -35,7 +35,6 @@ class ProductViewModel @Inject constructor(private val getProductUseCase: GetPro
                 is Resource.Error -> {
                     _productListStateHolder.value = ProductListHolder(error= it.message.toString())
                 }
-
             }
         }.launchIn(viewModelScope)
     }
